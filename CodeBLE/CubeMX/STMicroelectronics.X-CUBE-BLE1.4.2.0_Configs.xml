@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" CodeTemplate="app_x-cube-ble1_h.ftl;app_x-cube-ble1_c.ftl" DBVersion="V4.0" Name="BlueNRG-MS" RootFolder="Packs/STMicroelectronics/BlueNRG-MS/4.2.0/" Version="4.2.0" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Config.xsd">
+    <RefConfig Name="WirelessJjBlueNRGAaMS">
+        <ConfigFile Name="BLUENRG_CONF_H"/>
+        <ConfigFile Name="BLE_LIST_UTILS_H"/>
+        <Component Name="BlueNRGAaMSCcWireless:Controller:$BlueNRGAaMSCcWirelessJjController"/>
+        <Component Name="BlueNRGAaMSCcWireless:HCIIiTL:Basic:$BlueNRGAaMSCcWirelessJjHCIIiTL"/>
+        <Component Name="BlueNRGAaMSCcWireless:HCIIiTL:Template:$BlueNRGAaMSCcWirelessJjHCIIiTL"/>
+        <Component Name="BlueNRGAaMSCcWireless:HCIIiTLIiINTERFACE:UserBoard:$BlueNRGAaMSCcWirelessJjHCIIiTLIiINTERFACE"/>
+        <Component Name="BlueNRGAaMSCcWireless:HCIIiTLIiINTERFACE:Template:$BlueNRGAaMSCcWirelessJjHCIIiTLIiINTERFACE"/>
+        <Component Name="BlueNRGAaMSCcWireless:Utils:$BlueNRGAaMSCcWirelessJjUtils"/>
+    </RefConfig>
+    <RefConfig Name="WirelessJjApplication">
+        <Component Name="ApplicationCcWireless:Application:SensorDemo:$ApplicationCcWirelessJjApplication"/>
+        <Component Name="ApplicationCcWireless:Application:SensorDemoBLESensor:$ApplicationCcWirelessJjApplication"/>
+        <Component Name="ApplicationCcWireless:Application:SampleApp:$ApplicationCcWirelessJjApplication"/>
+        <Component Name="ApplicationCcWireless:Application:Beacon:$ApplicationCcWirelessJjApplication"/>
+        <Component Name="ApplicationCcWireless:Application:VirtualCOMPort:$ApplicationCcWirelessJjApplication"/>
+        <ConfigFile Name="SENSOR_DEMO_C"/>
+        <ConfigFile Name="SENSOR_DEMO_GV_C"/>
+        <ConfigFile Name="SENSOR_DEMO_INIT_C"/>
+        <ConfigFile Name="SENSOR_DEMO_BS_C"/>
+        <ConfigFile Name="SENSOR_DEMO_BS_GV_C"/>
+        <ConfigFile Name="SENSOR_DEMO_BS_INIT_C"/>
+        <ConfigFile Name="SAMPLE_APP_C"/>
+        <ConfigFile Name="SAMPLE_APP_GV_C"/>
+        <ConfigFile Name="SAMPLE_APP_INIT_C"/>
+        <ConfigFile Name="BEACON_C"/>
+        <ConfigFile Name="BEACON_GV_C"/>
+        <ConfigFile Name="BEACON_INIT_C"/>
+        <ConfigFile Name="VIRTUAL_COM_PORT_C"/>
+        <ConfigFile Name="VIRTUAL_COM_PORT_GV_C"/>
+        <ConfigFile Name="VIRTUAL_COM_PORT_INIT_C"/>
+    </RefConfig>
+    <RefConfigFile Name="BLUENRG_CONF_H" Description="Header for BlueNRG-MS configuration #define" Template="bluenrg_conf_h.ftl" Added="true">
+        <File Name="Target/bluenrg_conf.h" Category="header" Version="" Condition="SEMWirelessJjHCIIiTLJjBasic | SEMWirelessJjHCIIiTLJjTemplate" />
+        <Argument Name="DEBUG" GenericType="simple" Comment="Print messages from files at user level" Added="true"/>
+        <Argument Name="PRINT_CSV_FORMAT" GenericType="simple" Comment="Print the data travelling over the SPI in the .csv format for the GUI" Added="true"/>
+        <Argument Name="HCI_READ_PACKET_SIZE" GenericType="simple" Comment="Number of Bytes reserved for HCI Read Packet" Added="true"/>
+        <Argument Name="HCI_MAX_PAYLOAD_SIZE" GenericType="simple" Comment="Number of Bytes reserved for HCI Max Payload" Added="true"/>
+        <Argument Name="SCAN_P" GenericType="simple" Comment="Scan Interval: time interval from when the Controller started its last scan until it begins the subsequent scan (for a number N, Time = N x 0.625 msec)" Added="true"/>
+        <Argument Name="SCAN_L" GenericType="simple" Comment="Scan Window: amount of time for the duration of the LE scan (for a number N, Time = N x 0.625 msec)" Added="true"/>
+        <Argument Name="SUPERV_TIMEOUT" GenericType="simple" Comment="Supervision Timeout for the LE Link (for a number N, Time = N x 10 msec)" Added="true"/>
+        <Argument Name="CONN_P1" GenericType="simple" Comment="Minimum Connection Period (for a number N, Time = N x 1.25 msec)" Added="true"/>
+        <Argument Name="CONN_P2" GenericType="simple" Comment="Maximum Connection Period (for a number N, Time = N x 1.25 msec)" Added="true"/>
+        <Argument Name="CONN_L1" GenericType="simple" Comment="Minimum Connection Length (for a number N, Time = N x 0.625 msec)" Added="true"/>
+        <Argument Name="CONN_L2" GenericType="simple" Comment="Maximum Connection Length (for a number N, Time = N x 0.625 msec)" Added="true"/>
+        <Argument Name="ADV_DATA_TYPE" GenericType="simple" Comment="Advertising Type" Added="true"/>
+        <Argument Name="ADV_INTERV_MIN" GenericType="simple" Comment="Minimum Advertising Interval (for a number N, Time = N x 0.625 msec)" Added="true"/>
+        <Argument Name="ADV_INTERV_MAX" GenericType="simple" Comment="Maximum Advertising Interval (for a number N, Time = N x 0.625 msec)" Added="true"/>
+        <Argument Name="L2CAP_INTERV_MIN" GenericType="simple" Comment="Minimum Connection Event Interval (for a number N, Time = N x 1.25 msec)" Added="true"/>
+        <Argument Name="L2CAP_INTERV_MAX" GenericType="simple" Comment="Maximum Connection Event Interval (for a number N, Time = N x 1.25 msec)" Added="true"/>
+        <Argument Name="L2CAP_TIMEOUT_MULTIPLIER" GenericType="simple" Comment="Timeout Multiplier (for a number N, Time = N x 10 msec)" Added="true"/>
+    </RefConfigFile>
+	<!-- BLE List Utilities -->
+    <RefConfigFile Name="BLE_LIST_UTILS_H" Description="Header file with includes for the BLE List manager" Template="ble_list_utils_h.ftl" Added="true">
+        <File Name="Target/ble_list_utils.h" Category="header" Version="" Condition="SEMWirelessJjUtils" />
+    </RefConfigFile>
+    <!-- SensorDemo application -->
+    <RefConfigFile Name="SENSOR_DEMO_C" Description="Source for SensorDemo sample application" Template="sensor_demo_c.ftl">
+        <File Name="sensor_demo.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSensorDemo" />
+    </RefConfigFile>
+    <RefConfigFile Name="SENSOR_DEMO_GV_C" Description="Source for SensorDemo sample application" Template="sensor_demo_gv_c.ftl">
+        <File Name="sensor_demo_gv.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSensorDemo" />
+    </RefConfigFile>
+    <RefConfigFile Name="SENSOR_DEMO_INIT_C" Description="Source for SensorDemo sample application" Template="sensor_demo_init_c.ftl">
+        <File Name="sensor_demo_init.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSensorDemo" />
+    </RefConfigFile>
+    <!-- SensorDemo_BLESensor-App application -->
+    <RefConfigFile Name="SENSOR_DEMO_BS_C" Description="Source for SensorDemo_BLESensor-App sample application" Template="sensor_demo_bs_c.ftl">
+        <File Name="sensor_demo_bs.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSensorDemoBLESensor" />
+    </RefConfigFile>
+    <RefConfigFile Name="SENSOR_DEMO_BS_GV_C" Description="Source for SensorDemo_BLESensor-App sample application" Template="sensor_demo_bs_gv_c.ftl">
+        <File Name="sensor_demo_bs_gv.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSensorDemoBLESensor" />
+    </RefConfigFile>
+    <RefConfigFile Name="SENSOR_DEMO_BS_INIT_C" Description="Source for SensorDemo_BLESensor-App sample application" Template="sensor_demo_bs_init_c.ftl">
+        <File Name="sensor_demo_bs_init.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSensorDemoBLESensor" />
+    </RefConfigFile>
+    <!-- SampleApp application -->
+    <RefConfigFile Name="SAMPLE_APP_C" Description="Source for SampleApp sample application" Template="sample_app_c.ftl">
+        <File Name="sample_app.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSampleApp" />
+    </RefConfigFile>
+    <RefConfigFile Name="SAMPLE_APP_GV_C" Description="Source for SampleApp sample application" Template="sample_app_gv_c.ftl">
+        <File Name="sample_app_gv.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSampleApp" />
+    </RefConfigFile>
+    <RefConfigFile Name="SAMPLE_APP_INIT_C" Description="Source for SampleApp sample application" Template="sample_app_init_c.ftl">
+        <File Name="sample_app_init.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjSampleApp" />
+    </RefConfigFile>
+    <!-- Beacon application -->
+    <RefConfigFile Name="BEACON_C" Description="Source for Beacon sample application" Template="beacon_c.ftl">
+        <File Name="beacon.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjBeacon" />
+    </RefConfigFile>
+    <RefConfigFile Name="BEACON_GV_C" Description="Source for Beacon sample application" Template="beacon_gv_c.ftl">
+        <File Name="beacon_gv.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjBeacon" />
+    </RefConfigFile>
+    <RefConfigFile Name="BEACON_INIT_C" Description="Source for Beacon sample application" Template="beacon_init_c.ftl">
+        <File Name="beacon_init.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjBeacon" />
+    </RefConfigFile>
+	<!-- Virtual_COM_Port application -->
+    <RefConfigFile Name="VIRTUAL_COM_PORT_C" Description="Source for VirtualCOMPort sample application" Template="virtual_com_port_c.ftl">
+        <File Name="virtual_com_port.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjVirtualCOMPort" />
+    </RefConfigFile>
+    <RefConfigFile Name="VIRTUAL_COM_PORT_GV_C" Description="Source for VirtualCOMPort sample application" Template="virtual_com_port_gv_c.ftl">
+        <File Name="virtual_com_port_gv.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjVirtualCOMPort" />
+    </RefConfigFile>
+    <RefConfigFile Name="VIRTUAL_COM_PORT_INIT_C" Description="Source for VirtualCOMPort sample application" Template="virtual_com_port_init_c.ftl">
+        <File Name="virtual_com_port_init.tmp" Category="source" Version="" Condition="SEMWirelessJjApplicationJjVirtualCOMPort" />
+    </RefConfigFile>
+    <!-- RTE Components -->
+    <RefConfigFile Name="RTE_Component" Template="RTE_Components.ftl">
+        <File Category="header" Condition="" Name="Target/RTE_Components.h" Version="" attr="" select="" src=""/>
+    </RefConfigFile>
+    <RefComponent Cclass="BlueNRGAaMSCcWireless" Cgroup="Controller" Cversion="0Gg0Gg2">
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_aci.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_aci_const.h" Version="" attr="" select="" src=""/>
+        <!--
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_conf_template.h" Version="" attr="" select="" src=""/>
+        -->
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_def.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_gap.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_gap_aci.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_gatt_aci.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_gatt_server.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_hal_aci.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_l2cap_aci.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_types.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_updater_aci.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_utils.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/hci.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/hci_const.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/hci_le.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/link_layer.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/sm.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/compiler.h" Version="" attr="" select="" src=""/>
+        <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_gap_aci.c" Version="" attr="" select="" src=""/>
+        <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_gatt_aci.c" Version="" attr="" select="" src=""/>
+        <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_hal_aci.c" Version="" attr="" select="" src=""/>
+        <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_IFR.c" Version="" attr="" select="" src=""/>
+        <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_l2cap_aci.c" Version="" attr="" select="" src=""/>
+        <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_updater_aci.c" Version="" attr="" select="" src=""/>
+        <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_utils_small.c" Version="" attr="" select="" src=""/>
+    </RefComponent>
+    <RefComponent Cclass="BlueNRGAaMSCcWireless" Cgroup="HCIIiTL" Cversion="0Gg0Gg2">
+        <SubComponent Csub="" Cvariant="Template:Template">            
+            <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl.c" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl.h" Version="" attr="template" select="" src=""/>
+            <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci_le.c" Version="" attr="" select="" src=""/>
+            <File Category="doc" Condition="" Name="Middlewares/ST/BlueNRG-MS/doc/BlueNRG-MS_UserManual.chm" Version="" attr="" select="" src=""/>
+        </SubComponent>
+        <SubComponent Csub="" Cvariant="Basic:Basic">
+            <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.c" Version="" attr="" select="" src=""/>
+            <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.h" Version="" attr="" select="" src=""/>
+            <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci_le.c" Version="" attr="" select="" src=""/>
+            <File Category="doc" Condition="" Name="Middlewares/ST/BlueNRG-MS/doc/BlueNRG-MS_UserManual.chm" Version="" attr="" select="" src=""/>
+        </SubComponent>
+    </RefComponent>
+    <RefComponent Cclass="BlueNRGAaMSCcWireless" Cgroup="HCIIiTLIiINTERFACE" Cversion="0Gg0Gg2">
+        <SubComponent Csub="" Cvariant="Template:Template">
+            <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl_interface.c" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl_interface.h" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_conf_template.h" Version="" attr="template" select="" src=""/>
+        </SubComponent>
+        <SubComponent Csub="" Cvariant="UserBoard:UserBoard">
+            <!--<File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/hci/hci.c" Version="" attr="template" select="" src=""/>-->
+        </SubComponent>
+    </RefComponent>
+    <RefComponent Cclass="BlueNRGAaMSCcWireless" Cgroup="Utils" Cversion="0Gg0Gg2">
+        <File Category="source" Condition="" Name="Middlewares/ST/BlueNRG-MS/utils/ble_list.c" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/utils/ble_list.h" Version="" attr="" select="" src=""/>
+        <File Category="header" Condition="" Name="Middlewares/ST/BlueNRG-MS/utils/ble_list_utils_template.h" Version="" attr="" select="" src=""/>
+    </RefComponent>
+    <RefComponent Cclass="ApplicationCcWireless" Cgroup="Application" Cversion="0Gg0Gg2">
+        <SubComponent Csub="" Cvariant="VirtualCOMPort:VirtualCOMPort">
+            <File Category="doc" Condition="" Name="Projects/Board_PN/Applications/Virtual_COM_Port/readme.txt" Version="" attr="" select="" src=""/>
+            <File Category="other" Condition="" Name="Utilities/PC_Software/FlashUpdaterTool/flashUpdater.jar" Version="" attr="" select="" src=""/>
+            <File Category="other" Condition="" Name="Utilities/PC_Software/FlashUpdaterTool/readme.txt" Version="" attr="" select="" src=""/>
+        </SubComponent>
+        <SubComponent Csub="" Cvariant="Beacon:Beacon">
+            <File Category="source" Condition="" Name="Projects/Board_PN/Applications/Beacon/Src/sensor_service.c" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Projects/Board_PN/Applications/Beacon/Inc/sensor_service.h" Version="" attr="template" select="" src=""/>
+            <File Category="source" Condition="" Name="Projects/Board_PN/Applications/Beacon/Src/eddystone_beacon.c" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Projects/Board_PN/Applications/Beacon/Inc/eddystone_beacon.h" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Projects/Board_PN/Applications/Beacon/Inc/beacon_utils.h" Version="" attr="template" select="" src=""/>
+            <File Category="doc" Condition="" Name="Projects/Board_PN/Applications/Beacon/readme.txt" Version="" attr="" select="" src=""/>
+        </SubComponent>
+        <SubComponent Csub="" Cvariant="SampleApp:SampleApp">            
+            <File Category="source" Condition="" Name="Projects/Board_PN/Applications/SampleApp/Src/sample_service.c" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Projects/Board_PN/Applications/SampleApp/Inc/sample_service.h" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Projects/Board_PN/Applications/SampleApp/Inc/role_type.h" Version="" attr="template" select="" src=""/>            
+            <File Category="doc" Condition="" Name="Projects/Board_PN/Applications/SampleApp/readme.txt" Version="" attr="" select="" src=""/>
+        </SubComponent>
+        <SubComponent Csub="" Cvariant="SensorDemo:SensorDemo">
+            <File Category="source" Condition="" Name="Projects/Board_PN/Applications/SensorDemo/Src/sensor_service.c" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Projects/Board_PN/Applications/SensorDemo/Inc/sensor_service.h" Version="" attr="template" select="" src=""/>
+            <File Category="doc" Condition="" Name="Projects/Board_PN/Applications/SensorDemo/readme.txt" Version="" attr="" select="" src=""/>
+        </SubComponent>
+        <SubComponent Csub="" Cvariant="SensorDemoBLESensor:SensorDemoBLESensor">
+            <File Category="source" Condition="" Name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/Src/gatt_db.c" Version="" attr="template" select="" src=""/>
+            <File Category="source" Condition="" Name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/Src/sensor.c" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/Inc/gatt_db.h" Version="" attr="template" select="" src=""/>
+            <File Category="header" Condition="" Name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/Inc/sensor.h" Version="" attr="template" select="" src=""/>
+            <File Category="doc" Condition="" Name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/readme.txt" Version="" attr="" select="" src=""/>
+        </SubComponent>
+    </RefComponent>
+
+    <RefBspComponent BspIpName="SPI" BspModeName="Full-Duplex Master" Description="BSP_BUS_DRIVER" Name="BUS IO driver">
+        <File Category="template" Name="hci_tl_interface_c.ftl"/>
+        <File Category="template" Name="hci_tl_interface_h.ftl"/>        
+    </RefBspComponent>    
+    <!-- Try to add the GPIO as a platform setting -->
+    <RefBspComponent Name="Exti Line" BspIpName="GPIO" BspModeName="EXTI">       
+        <File Category="template" Name="hci_tl_interface_h.ftl"/>
+        <File Category="template" Name="hci_tl_interface_c.ftl"/>
+    </RefBspComponent>
+    <RefBspComponent Name="CS Line" BspIpName="GPIO" BspModeName="Output">       
+        <File Category="template" Name="hci_tl_interface_h.ftl"/>      
+    </RefBspComponent>
+    <RefBspComponent Name="Reset Line" BspIpName="GPIO" BspModeName="Output">       
+        <File Category="template" Name="hci_tl_interface_h.ftl"/>      
+    </RefBspComponent>
+    
+    <RefBspComponent Name="BSP LED" BspIpName="GPIO" BspModeName="Output">               
+    </RefBspComponent>
+    <RefBspComponent Name="BSP BUTTON" BspIpName="GPIO" BspModeName="EXTI">           
+    </RefBspComponent>
+	<RefBspComponent Name="BSP USART" BspIpName="USART" BspModeName="Asynchronous">	     
+    </RefBspComponent>
+</IP>

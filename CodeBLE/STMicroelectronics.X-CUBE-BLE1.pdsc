@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<package schemaVersion="1.4.0" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="../../PACK.xsd">
+  <vendor>STMicroelectronics</vendor>
+  <name>X-CUBE-BLE1</name>
+  <description>BLE stack and sample applications for BlueNRG-MS module</description>
+  <license>en.DM00367782.pdf</license>
+  <!-- web download link -->
+  <url>http://sw-center.st.com/packs/x-cube/</url>
+  
+  <releases>
+    <release version="4.2.0">
+      BlueNRG-MS support package V4.2.0
+      - Create sample applications with STM32CubeMX V5.0.0
+      - Add BLE Advertising, Scan and Connection parameters 
+        configuration through STM32CubeMX GUI
+      - Add SensorDemo_BLESensor-App sample application
+      - Exclude support to STM32G0 family
+    </release>
+    <release version="1.1.0">
+      BlueNRG-MS support package V1.1.0
+      - Create sample applications with STM32CubeMX V4.27.0
+      - Align to new BSP Common APIs
+      - Update Getting Started document
+    </release>
+    <release version="1.0.0">
+      BlueNRG-MS support package V1.0.0
+      - First official release
+    </release>
+  </releases>
+  
+  <taxonomy>
+    <description Cclass="Wireless">Wireless stack for Bluetooth Low Energy</description>
+  </taxonomy>
+  
+  <keywords>    
+    <keyword>ARM</keyword>
+    <keyword>Cortex-M</keyword>
+    <keyword>STMicroelectronics</keyword>
+    <keyword>Wireless</keyword>
+    <keyword>BlueNRG-MS</keyword>
+    <keyword>Bluetooth Low Energy</keyword>
+  </keywords>
+  
+  <apis>
+    <!-- API -->
+    <api Cclass="Wireless" Cgroup="HCI_TL" Capiversion="1.00" exclusive="0">
+      <description>HCI Pattern Interface</description>
+      <files>
+        <file category="header" name="Middlewares/ST/BlueNRG-MS/includes/hci.h"/>
+        <file category="doc"    name="Middlewares/ST/BlueNRG-MS/doc/BlueNRG-MS_UserManual.chm"/>
+      </files>
+    </api>
+    <api Cclass="Wireless" Cgroup="HCI_TL_INTERFACE" Capiversion="1.00" exclusive="0">
+      <description>BLE Transport Layer Interface</description>
+      <files>
+        <file category="header" name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl_interface.h"/>
+        <file category="doc"    name="Middlewares/ST/BlueNRG-MS/doc/BlueNRG-MS_UserManual.chm"/>
+      </files>
+    </api>
+  </apis>
+  
+  <conditions>
+    <condition id="Cortex-M Device">
+      <description>Cortex-M processor based device: Cortex-M0, Cortex-M0+, Cortex-M3, Cortex-M4, Cortex-M7</description>
+      <!-- STM32F0 -->
+      <accept Dcore="Cortex-M0"/>
+      
+      <!-- Accept only the STM32L0 family. Exclude support to STM32G0 family -->
+      <accept Dcore="Cortex-M0+" Dfamily="STM32L0"/>
+      
+      <!-- STM32F1, STM32F2 and STM32L1 -->
+      <accept Dcore="Cortex-M3" Dfamily="STM32F1"/>
+      <accept Dcore="Cortex-M3" Dfamily="STM32F2"/>
+      <accept Dcore="Cortex-M3" Dfamily="STM32L1"/>
+      
+      <!-- STM32F4, STM32F3 and STM32L4 series -->
+      <accept Dcore="Cortex-M4"/>
+      
+      <!-- STM32F7 and STMH7 series -->
+      <accept Dcore="Cortex-M7"/>     
+    </condition>
+    
+    <condition id="CM0_GCC">
+      <require Dcore="Cortex-M0"/>
+      <require Tcompiler="GCC"/>
+    </condition>
+    <condition id="CM0_IAR">
+      <require Dcore="Cortex-M0"/>
+      <require Tcompiler="IAR"/>
+    </condition>
+    <condition id="CM0_Keil">
+      <require Dcore="Cortex-M0"/>
+      <require Tcompiler="ARMCC"/>
+    </condition>
+    
+    <condition id="CM3_GCC">
+      <require Dcore="Cortex-M3"/>
+      <require Tcompiler="GCC"/>
+    </condition>
+    <condition id="CM3_IAR">
+      <require Dcore="Cortex-M3"/>
+      <require Tcompiler="IAR"/>
+    </condition>
+    <condition id="CM3_Keil">
+      <require Dcore="Cortex-M3"/>
+      <require Tcompiler="ARMCC"/>
+    </condition>
+    
+    <condition id="CM4_GCC">
+      <require Dcore="Cortex-M4"/>
+      <require Tcompiler="GCC"/>
+    </condition>
+    <condition id="CM4_IAR">
+      <require Dcore="Cortex-M4"/>
+      <require Tcompiler="IAR"/>
+    </condition>
+    <condition id="CM4_Keil">
+      <require Dcore="Cortex-M4"/>
+      <require Tcompiler="ARMCC"/>
+    </condition>
+    
+    <condition id="CM7_GCC">
+      <require Dcore="Cortex-M7"/>
+      <require Tcompiler="GCC"/>
+    </condition>
+    <condition id="CM7_IAR">
+      <require Dcore="Cortex-M7"/>
+      <require Tcompiler="IAR"/>
+    </condition>
+    <condition id="CM7_Keil">
+      <require Dcore="Cortex-M7"/>
+      <require Tcompiler="ARMCC"/>
+    </condition>
+	
+    <condition id="BLEStack Condition">
+      <description>Cortex-M Device and board setup (BlueNRG-MS)</description>      
+      <require condition="Cortex-M Device"/>   
+      <require Cbundle="BlueNRG-MS" Cclass="Wireless" Cgroup="HCI_TL"/>  
+      <require Cbundle="BlueNRG-MS" Cclass="Wireless" Cgroup="Utils"/>
+    </condition> 
+    
+    <!-- SensorDemo, SensorDemo_BLESensor-App, SampleApp, Virtual_COM_Port, Beacon applications condition -->
+    <condition id="Application Condition">
+      <require Cbundle="BlueNRG-MS" Cclass="Wireless" Cgroup="Controller"/>
+      </condition>
+    <condition id="VCOM Condition">
+      <require Cbundle="BlueNRG-MS" Cclass="Wireless" Cgroup="Controller"/>
+      <require Cbundle="BlueNRG-MS" Cclass="Wireless" Cgroup="Utils"/>
+      <require Cbundle="BlueNRG-MS" Cclass="Wireless" Cgroup="HCI_TL" Cvariant="Basic"/>
+      <require Cbundle="BlueNRG-MS" Cclass="Wireless" Cgroup="HCI_TL_INTERFACE" Cvariant="UserBoard"/>
+    </condition>
+    <!-- API condition -->
+    <condition id="TL API Condition">
+      <description>Request the API BLE Transport Layer</description>      
+      <require Cclass="Wireless" Cgroup="HCI_TL_INTERFACE" Capiversion="0.0.1"/>     
+    </condition>
+  </conditions>
+  
+  <components>
+    <bundle Cbundle="BlueNRG-MS"  Cvendor="STMicroelectronics" Cclass="Wireless" Cversion="0.0.2">
+      <!--description>BLE stack for BlueNRG-MS module</description-->
+      <doc>Documentation/STMicroelectronics.X-CUBE-BLE1_GettingStarted.pdf</doc>
+      <component Cgroup="Controller" condition="BLEStack Condition" maxInstances="1">
+        <!-- short component description -->
+        <description>Host Controller Interface (HCI)</description> 
+        <files>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_aci.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_aci_const.h"/>
+          <!--
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_conf_template.h"/>
+          -->
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_def.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_gap.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_gap_aci.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_gatt_aci.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_gatt_server.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_hal_aci.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_l2cap_aci.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_types.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_updater_aci.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_utils.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/hci.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/hci_const.h"/>          
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/hci_le.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/link_layer.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/sm.h"/>
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/includes/compiler.h"/>
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_gap_aci.c" />
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_gatt_aci.c" />
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_hal_aci.c" />
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_IFR.c" />
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_l2cap_aci.c" />
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_updater_aci.c" />
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_utils_small.c" />
+        </files>
+      </component>
+	  
+      <component Cgroup="HCI_TL" Cvariant="Basic" condition="TL API Condition" isDefaultVariant="true" maxInstances="1">
+        <description>Basic HCI Transport Layer (use a basic set of already implemented APIs)</description>
+        <RTE_Components_h>#define HCI_TL</RTE_Components_h>
+        <files>
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.c" />
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.h" />
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/hci_le.c" />
+          <file category="doc" name="Middlewares/ST/BlueNRG-MS/doc/BlueNRG-MS_UserManual.chm"/>
+        </files>
+      </component>	  
+      <component Cgroup="HCI_TL" Cvariant="Template" condition="TL API Condition" isDefaultVariant="false" maxInstances="1">        
+        <description>Template for HCI Transport Layer (the user can customize the available set of APIs)</description>
+        <RTE_Components_h>#define HCI_TL</RTE_Components_h>
+        <files>          
+		  <file attr="template" category="source"  name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl.c" />
+		  <file attr="template" category="header"  name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl.h" />
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/hci/hci_le.c" />
+          <file category="doc" name="Middlewares/ST/BlueNRG-MS/doc/BlueNRG-MS_UserManual.chm"/>
+        </files>
+      </component>
+      
+      <component Cgroup="HCI_TL_INTERFACE" Cvariant="UserBoard" condition="" isDefaultVariant="true" maxInstances="1" Capiversion="0.0.1">
+        <description>HCI Transport Layer Interface based on User Board definition (use a basic set of already implemented APIs)</description>
+        <RTE_Components_h>#define HCI_TL_INTERFACE</RTE_Components_h>
+        <files>
+          <!--<file attr="template" category="source" name="Middlewares/ST/BlueNRG-MS/hci/hci.c" />-->
+        </files>
+      </component>
+      
+      <component Cgroup="HCI_TL_INTERFACE" Cvariant="Template" condition="" maxInstances="1" isDefaultVariant="false" Capiversion="0.0.1">
+        <description>Template for HCI Transport Layer Interface (the user can customize the available set of APIs)</description>
+        <RTE_Components_h>#define HCI_TL_INTERFACE</RTE_Components_h>
+        <files>
+          <file attr="template" category="source"  name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl_interface.c" />
+          <file attr="template" category="header"  name="Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Template/hci_tl_interface.h" />
+          <file attr="template" category="header"  name="Middlewares/ST/BlueNRG-MS/includes/bluenrg_conf_template.h"/>
+        </files>
+      </component>
+
+      <component Cgroup="Utils" condition="" maxInstances="1">
+      <description>Utilities (BLE list manager)</description>      
+        <files>
+          <file category="source"  name="Middlewares/ST/BlueNRG-MS/utils/ble_list.c" />          
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/utils/ble_list.h" />
+          <file category="header"  name="Middlewares/ST/BlueNRG-MS/utils/ble_list_utils_template.h" />
+        </files>
+      </component>
+    </bundle>  
+    
+    <bundle Cbundle="Application" Cvendor="STMicroelectronics" Cclass="Wireless" Cversion="0.0.2">
+      <description>BLE sample applications for BlueNRG-MS module</description>
+      <doc>Documentation/STMicroelectronics.X-CUBE-BLE1_GettingStarted.pdf</doc>
+      <component  Cgroup="Application" Cvariant="SensorDemo" isDefaultVariant="true" condition="Application Condition" maxInstances="1">
+        <description>SensorDemo sample application</description> 
+        <RTE_Components_h>#define SENSOR_DEMO</RTE_Components_h>
+        <files>		            
+          <file attr="template" category="source"  name="Projects/Board_PN/Applications/SensorDemo/Src/sensor_service.c" />
+          <file attr="template" category="header"  name="Projects/Board_PN/Applications/SensorDemo/Inc/sensor_service.h" />
+          <file category="doc"  name="Projects/Board_PN/Applications/SensorDemo/readme.txt" />
+        </files>
+      </component>
+      <component  Cgroup="Application" Cvariant="SensorDemoBLESensor" isDefaultVariant="false" condition="Application Condition" maxInstances="1">
+        <description>SensorDemo sample application for the ST BLE Sensor app</description> 
+        <RTE_Components_h>#define SENSOR_DEMO_BS</RTE_Components_h>
+        <files>		            
+          <file attr="template" category="source"  name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/Src/gatt_db.c" />
+          <file attr="template" category="source"  name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/Src/sensor.c" />
+          <file attr="template" category="header"  name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/Inc/gatt_db.h" />
+          <file attr="template" category="header"  name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/Inc/sensor.h" />
+          <file category="doc"  name="Projects/Board_PN/Applications/SensorDemo_BLESensor-App/readme.txt" />
+        </files>
+      </component>
+      <component  Cgroup="Application" Cvariant="SampleApp" isDefaultVariant="false" condition="Application Condition" maxInstances="1">
+        <description>SampleApp sample application</description> 
+        <RTE_Components_h>#define SAMPLE_APP</RTE_Components_h>
+        <files>	          
+          <file attr="template" category="source"  name="Projects/Board_PN/Applications/SampleApp/Src/sample_service.c" />
+		  <file attr="template" category="header"  name="Projects/Board_PN/Applications/SampleApp/Inc/sample_service.h" />
+          <file attr="template" category="header"  name="Projects/Board_PN/Applications/SampleApp/Inc/role_type.h" />
+          <file category="doc"  name="Projects/Board_PN/Applications/SampleApp/readme.txt" />
+        </files>
+      </component>
+      <component  Cgroup="Application" Cvariant="Beacon" isDefaultVariant="false" condition="Application Condition" maxInstances="1">
+        <description>Beacon sample application</description> 
+        <RTE_Components_h>#define BEACON</RTE_Components_h>
+        <files>          
+          <file attr="template" category="source"  name="Projects/Board_PN/Applications/Beacon/Src/eddystone_beacon.c" />
+          <file attr="template" category="header"  name="Projects/Board_PN/Applications/Beacon/Inc/eddystone_beacon.h" />
+          <file attr="template" category="source"  name="Projects/Board_PN/Applications/Beacon/Src/sensor_service.c" />
+          <file attr="template" category="header"  name="Projects/Board_PN/Applications/Beacon/Inc/sensor_service.h" />
+          <file attr="template" category="header"  name="Projects/Board_PN/Applications/Beacon/Inc/beacon_utils.h" />
+          <file category="doc"  name="Projects/Board_PN/Applications/Beacon/readme.txt" />
+        </files>
+      </component>
+      <component  Cgroup="Application" Cvariant="VirtualCOMPort" isDefaultVariant="false" condition="VCOM Condition" maxInstances="1">
+        <description>Virtual_COM_Port sample application</description> 
+        <RTE_Components_h>#define VIRTUAL_COM_PORT</RTE_Components_h>
+        <files>        
+          <file category="doc"   name="Projects/Board_PN/Applications/Virtual_COM_Port/readme.txt" />
+          <file category="other" name="Utilities/PC_Software/FlashUpdaterTool/flashUpdater.jar" />
+          <file category="other" name="Utilities/PC_Software/FlashUpdaterTool/readme.txt" />
+        </files>
+      </component>
+    </bundle>
+     
+      <component Cvendor="STMicroelectronics" Cclass="CubeMX" Cgroup="thirdparty" Cversion="4.0">
+        <description>CUBEMX </description>
+        <files>
+          <file category="other" attr="config" name="CubeMX/STMicroelectronics.X-CUBE-BLE1.4.2.0_Modes.xml"/>
+          <file category="other" attr="config" name="CubeMX/STMicroelectronics.X-CUBE-BLE1.4.2.0_Configs.xml"/>
+        </files>
+      </component>
+     
+  </components>
+  
+  <!--
+  <examples>
+	<example name="SampleAppThT" folder="Projects/STM32L476RG-Nucleo/Applications/SampleAppThT" doc="readme.txt" version="1.1.0" >
+		<description>This example shows the basic functionalities of the BlueNRG-MS chip (it includes also a throughput test)</description>	
+		<board vendor="STMicroelectronics" name="NUCLEO-L476RG"/>
+		<project>
+			<environment name="iar" load="EWARM/SampleAppThT.eww"/>
+			<environment name="uv"  load="MDK-ARM/Project.uvprojx"/>
+		</project>
+		<attributes>
+			<component Cclass="Wireless" Cgroup="Controller"/>
+			<component Cclass="Wireless" Cgroup="Utils"/>
+			<component Cclass="Wireless" Cgroup="HCI_TL" Cvariant="Basic"/>
+			<component Cclass="Wireless" Cgroup="HCI_TL_INTERFACE" Cvariant="UserBoard"/>				
+			<keyword>test</keyword>
+		</attributes>		
+	</example>
+  </examples>
+  -->
+  
+</package>
